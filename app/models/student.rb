@@ -13,4 +13,15 @@
 class Student < ActiveRecord::Base
   has_many :classroom_students
   has_many :classrooms, through: :classroom_students
+
+  def self.search(search)
+    if search
+      self.select do |student|
+        student.name.include?(search.capitalize)
+      end
+    else
+      self.all
+    end
+  end
+
 end
